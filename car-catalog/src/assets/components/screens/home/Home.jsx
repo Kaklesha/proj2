@@ -1,14 +1,21 @@
 import styles from './Home.module.css'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import {cars as carsData} from './cars.data.js'
 import CarItem from './car-item/CarItem'
 import VideoPlayer from './Player.jsx'
 
 import CreateCarForm from './create-car-form/CreateCarForm'
+import { AuthContext } from '../../../providers/AuthProvider'
 
 
 const Home=()=> {
     
+  const clearCars= useCallback(()=>()=>{
+    setCars([])
+
+
+  },[])
+
 
     useEffect(()=>{
 
@@ -27,7 +34,8 @@ const Home=()=> {
 
         }
         fetchData()
-        console.log('hey')
+        return clearCars
+        
     },[])
 
     const [cars,setCars]=useState(carsData)
@@ -36,14 +44,21 @@ const Home=()=> {
 
    // const {push} = useNavigate()
 
+  const {user,setUser}=useContext(AuthContext)
+
     return (
-      
        <div>
         <h1>
           Car catalog
         </h1>
-       <VideoPlayer src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" />
-    
+       {/* <VideoPlayer src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" />
+     */}
+
+      {!!user&&<><h2>Welcome ,{user.username}!</h2>
+      <button onClick={()=>setUser(null)} >Logout</button></>
+      
+      }
+
 
         <CreateCarForm  setCars={setCars} />
             <div>
