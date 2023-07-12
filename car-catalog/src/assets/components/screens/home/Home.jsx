@@ -12,14 +12,14 @@ const Home=()=> {
   //  useMemo
 
     const [cars,setCars]=useState(carsData)
-
+    console.log(cars)
     return (
       
        <div>
         <h1>
           Car catalog
         </h1>
-        <CreateCarForm/>
+        <CreateCarForm  setCars={setCars} />
             <div>
                 {cars.length&&cars.map(car=>(
 
