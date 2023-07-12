@@ -12,18 +12,50 @@ const Home=()=> {
     // , [])
 
   //  useMemo
+
+//   downloadItemFetch =()=>{
+//     fetch('http://localhost:9000/api/employees',
+//     {
+//         method: "GET",
+//         headers: {
+//             'Accept': 'application/json',
+//         },
+//     })
+//     .then(response=>response.json())
+
+//     .then( response=> {this.setState(({data})=> {
+//                 const newArr = [...data,...response];
+//                // console.log(newArr);
+//                     return{
+//                         data: newArr,
+//                         isDown: true,
+//                         lastId: newArr[newArr.length-1]['id']+1
+//                     }
+//                 }
+//                )}
+//         )
+//     .catch(e=>console.log(e));
+// }
+
+
     useEffect(()=>{
 
         const fetchData= async()=>{
-            const response = await fetch(
-            'http://localhost:9000/cars')
-
-            const data = await response.json()
-
-            
-
-            setCars(data)
+            const response = fetch(
+//-----Пришлось переписать await ума не приложу как его сцепить с Go в авторской версии этого хука
+            'http://localhost:9000/api/employees',{
+                method: 'GET',
+                headers:{
+                    'Accept': 'application',
+                },
+            })
+            .then(response=>response.json())
+            .then(response=>{setCars(response)})
+            // console.log(`=====${data}`)
+            // setCars(data)
+//----
         }
+        
         fetchData()
 
         console.log('hey')
