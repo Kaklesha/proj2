@@ -1,18 +1,38 @@
 import styles from './Home.module.css'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {cars as carsData} from './cars.data.js'
 import CarItem from './car-item/CarItem'
 
 import CreateCarForm from './create-car-form/CreateCarForm'
+
+
 const Home=()=> {
     // const filterCars = 
     // useMemo(()=>cars.filter(car=> car.price>20000)
     // , [])
 
   //  useMemo
+    useEffect(()=>{
+
+        const fetchData= async()=>{
+            const response = await fetch(
+            'http://localhost:9000/cars')
+
+            const data = await response.json()
+
+            
+
+            setCars(data)
+        }
+        fetchData()
+
+        console.log('hey')
+    },[])
 
     const [cars,setCars]=useState(carsData)
     console.log(cars)
+
+
     return (
       
        <div>
