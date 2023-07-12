@@ -22,3 +22,16 @@ h1{
 .info p{
     margin-bottom: 4vh;
 }
+
+.btn{
+    display: block;
+    padding: 6px 40px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    margin: 10px;
+    transition: all 0.3s ease;
+    margin-top: 8vh;
+}
+.btn:hover{
+    background-color: #d2dce6;
+}

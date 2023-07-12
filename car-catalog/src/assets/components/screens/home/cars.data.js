@@ -14,7 +14,7 @@ export const cars = [
         ,
     { id: 3,
         name: 'BMW',
-        price:94970,
+        price:14970,
         image: 'car3.jpg',
     
         }

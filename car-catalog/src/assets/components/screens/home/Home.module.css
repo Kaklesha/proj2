@@ -1,6 +1,6 @@
 .item{
     border: 2px solid grey;
-
+    margin-bottom: 10vh;
 }
 .image{
     background-size: cover;

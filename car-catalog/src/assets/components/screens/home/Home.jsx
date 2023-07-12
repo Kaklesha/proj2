@@ -1,31 +1,17 @@
 import styles from './Home.module.css'
-import {cars} from './cars.data.js'
+import { useMemo, useState } from 'react'
+import {cars as carsData} from './cars.data.js'
+import CarItem from './car-item/CarItem'
 
-
+import CreateCarForm from './create-car-form/CreateCarForm'
 const Home=()=> {
-  
+    // const filterCars = 
+    // useMemo(()=>cars.filter(car=> car.price>20000)
+    // , [])
 
-    //  const cars = [
-    //     { id: 1,
-    //      name: 'Toyota Camry',
-    //      price:24970,
-    //      image: 'car1.jpg',
-     
-    //      },
-    //      { id: 2,
-    //          name: 'Ferrari',
-    //          price:54970,
-    //          image: 'car2.jpg',
-         
-    //          }
-    //          ,
-    //      { id: 3,
-    //          name: 'BMW',
-    //          price:94970,
-    //          image: 'car3.jpg',
-         
-    //          }
-    //  ]
+  //  useMemo
+
+    const [cars,setCars]=useState(carsData)
 
     return (
       
@@ -33,25 +19,11 @@ const Home=()=> {
         <h1>
           Car catalog
         </h1>
+        <CreateCarForm/>
             <div>
-                {cars.map(car=>(
+                {cars.length&&cars.map(car=>(
 
-                    <div key={car.id} className={styles.item}>
-                    <div   className={styles.image}
-                    style={{
-                        backgroundImage: `url(${car.image})`,
-                    }}
-                    />
-                    <div className={styles.info}>
-                    <h2>{car.name}</h2>
-                    <p>{new Intl.NumberFormat('en-US',{
-                        style: 'currency',
-                        currency: "USD",
-                        currencyDisplay: 'narrowSymbol',
-                    }).format(car.price)}</p>
-                    <button>Read mode</button>
-                    </div>
-                    </div>
+                  <CarItem  key={car.id} car={car} />
 
                 ))}
                
