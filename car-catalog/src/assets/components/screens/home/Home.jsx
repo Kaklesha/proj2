@@ -2,41 +2,13 @@ import styles from './Home.module.css'
 import { useEffect, useMemo, useState } from 'react'
 import {cars as carsData} from './cars.data.js'
 import CarItem from './car-item/CarItem'
+import VideoPlayer from './Player.jsx'
 
 import CreateCarForm from './create-car-form/CreateCarForm'
 
 
 const Home=()=> {
-    // const filterCars = 
-    // useMemo(()=>cars.filter(car=> car.price>20000)
-    // , [])
-
-  //  useMemo
-
-//   downloadItemFetch =()=>{
-//     fetch('http://localhost:9000/api/employees',
-//     {
-//         method: "GET",
-//         headers: {
-//             'Accept': 'application/json',
-//         },
-//     })
-//     .then(response=>response.json())
-
-//     .then( response=> {this.setState(({data})=> {
-//                 const newArr = [...data,...response];
-//                // console.log(newArr);
-//                     return{
-//                         data: newArr,
-//                         isDown: true,
-//                         lastId: newArr[newArr.length-1]['id']+1
-//                     }
-//                 }
-//                )}
-//         )
-//     .catch(e=>console.log(e));
-// }
-
+    
 
     useEffect(()=>{
 
@@ -51,13 +23,10 @@ const Home=()=> {
             })
             .then(response=>response.json())
             .then(response=>{setCars(response)})
-            // console.log(`=====${data}`)
-            // setCars(data)
 //----
-        }
-        
-        fetchData()
 
+        }
+        fetchData()
         console.log('hey')
     },[])
 
@@ -65,12 +34,17 @@ const Home=()=> {
     console.log(cars)
 
 
+   // const {push} = useNavigate()
+
     return (
       
        <div>
         <h1>
           Car catalog
         </h1>
+       <VideoPlayer src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" />
+    
+
         <CreateCarForm  setCars={setCars} />
             <div>
                 {cars.length&&cars.map(car=>(
