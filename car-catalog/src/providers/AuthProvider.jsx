@@ -1,4 +1,4 @@
-import {createContext} from 'react'
+import {createContext,useState} from 'react'
 
 export const AuthContext = createContext()
 
@@ -9,7 +9,7 @@ const [user,setUser] =useState(null)
     return <div>
 
     <AuthContext.Provider value={{user,setUser}}>
-        AuthProvider
+        {children}
     </AuthContext.Provider>
 
     </div>

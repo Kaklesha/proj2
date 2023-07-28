@@ -1,8 +1,10 @@
 import { useParams,Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CarItem from "../car-item/CarItem";
 
+import { withAuth } from "../../../../../HOC/withAuth";
 import { CarService } from "../../../../../service/car.service";
+//import { AuthContext } from "../../../../../providers/AuthProvider";
 
 const CarDetail = () => {
   const [car, setCar] = useState({});
@@ -22,6 +24,7 @@ const CarDetail = () => {
 
   if (!car?.name) return <p>Loading..</p>;
 
+ 
   return (
     <div>
         <Link className="btn" to='/'>Back</Link>
@@ -29,4 +32,4 @@ const CarDetail = () => {
     </div>
   );
 };
-export default CarDetail;
+export default withAuth (CarDetail);
