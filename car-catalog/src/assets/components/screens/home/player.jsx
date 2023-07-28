@@ -16,7 +16,7 @@ const VideoPlayer = ()=>{
     <video src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" 
     ref={ref} 
         width="300px"
-        height="500px"
+        height="200px"
     />
 </div>
 

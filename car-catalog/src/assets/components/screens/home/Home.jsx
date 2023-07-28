@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useCallback} from "react";
 import { cars as carsData } from "./cars.data.js";
 import CarItem from "./car-item/CarItem";
 import {useNavigate} from "react-router-dom";
@@ -11,6 +11,13 @@ import VideoPlayer from "./player.jsx";
 const Home = () => {
   const [cars, setCars] = useState(carsData);
 
+  const clearCars= useCallback(
+    ()=> ()=>{
+    setCars([])
+
+  }, [cars])
+  
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await CarService.getAll();
@@ -19,7 +26,9 @@ const Home = () => {
     };
 
     fetchData();
+    return clearCars;
   }, [])
+
 
 const nav = useNavigate()
 
