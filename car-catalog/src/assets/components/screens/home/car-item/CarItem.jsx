@@ -1,5 +1,5 @@
-import styles from '../Home.module.css'
-
+import styles from '../Home.module.css';
+import {Link} from "react-router-dom";
 const CarItem =({car})=>{
 
 
@@ -17,7 +17,8 @@ const CarItem =({car})=>{
             currency: "USD",
             currencyDisplay: 'narrowSymbol',
         }).format(car.price)}</p>
-        <button>Read mode</button>
+        <Link className="btn" to={`/car/${car.id}`}>Read mode</Link>
+        
         </div>
         </div>)
 }
