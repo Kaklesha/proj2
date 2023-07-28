@@ -1,4 +1,4 @@
-import { useEffect, useState ,useCallback} from "react";
+import { useEffect, useState ,useCallback, useMemo} from "react";
 import { cars as carsData } from "./cars.data.js";
 import CarItem from "./car-item/CarItem";
 import {useNavigate} from "react-router-dom";
