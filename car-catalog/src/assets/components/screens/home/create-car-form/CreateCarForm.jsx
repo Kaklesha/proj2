@@ -1,75 +1,52 @@
-import { useState } from 'react';
-import {useForm} from "react-hook-form";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
-import styles from './CreateCarForm.module.css';
-
-
-const clearData={
-    price:'',
-    name:'',
-    image:'',
-}
+import styles from "./CreateCarForm.module.css";
 
 
-const CreateCarForm=({setCars})=>{
-    
-    const [name, setName]=useState('')
-    const [price, setPrice]=useState('')
-    const [image, setImage]=useState('')
 
-
-    const [data,setData]=useState({
-        price: '', name:'',image:'',
-    })
-   
-    const {register, reset, handleSubmit}= useForm({
-        mode:"onChange"
-    })
-
-    const createCar =(event,data)=>{
-        event.preventDefault()
-        console.log(name,price,image)
-        setCars(prev=>[{id: prev.lengt+1, 
-           ...data}, ...prev])
-
-           setData(clearData)
-    }
+const CreateCarForm = ({ setCars }) => {
 
     
 
-    return (
-        
-        <form className={styles.form} onSubmit={handleSubmit(createCar)}>
-            
-            <input placeholder="Name" 
-            onChange={e=>setData(
-                prev=>({
-                    ...prev,name: e.target.value
-                })
-            )}
-             value={data.name} />
-            <input placeholder="Price" 
-             onChange={e=>setData(
-                prev=>({
-                    ...prev,price: e.target.value
-                })
-            )}
-             value={data.price}/>
+  const { register, reset, handleSubmit , formState:{errors}} = useForm({
+    mode: "onChange",
+  });
 
-            <input placeholder="Image.jpg" 
-           
-             value={data.image}/>
+  const createCar = (data) => {
 
-            <button className='btn'
-            
+   // console.log(name, price, image);
+   console.log(data)
+    setCars((prev) => [{ id: prev.lengt + 1, ...data }, ...prev]);
 
 
-            >Create</button>
+    reset()
+    //setData(clearData);
+  };
 
+  console.log(errors)
 
-        </form>
+  return (
+    <form className={styles.form} onSubmit={handleSubmit(createCar)}>
+      <input
+        {...register('name',{required:" Name is requered "})}
+        placeholder="Name"
+      />
+      {errors?.name?.message&&    
+      <p className={{color:'red',}}>Name is required</p>
+      }
+      <input
+        placeholder="Price"
+        {...register('price',{required:true})}
+      />
 
+      <input placeholder="Image"    
+       {...register('image',{required:true})}
+      
+      />
 
-    )
-}
-export default CreateCarForm
+      <button className="btn">Create</button>
+    </form>
+  );
+};
+export default CreateCarForm;
