@@ -5,9 +5,8 @@ import styles from "./CreateCarForm.module.css";
 
 
 
-const CreateCarForm = ({ setCars }) => {
+const CreateCarForm = () => {
 
-    
 
   const { register, reset, handleSubmit , formState:{errors}} = useForm({
     mode: "onChange",
@@ -16,8 +15,8 @@ const CreateCarForm = ({ setCars }) => {
   const createCar = (data) => {
 
    // console.log(name, price, image);
-   console.log(data)
-    setCars((prev) => [{ id: prev.lengt + 1, ...data }, ...prev]);
+//    console.log(data)
+//     setCars((prev) => [{ id: prev.lengt + 1, ...data }, ...prev]);
 
 
     reset()
