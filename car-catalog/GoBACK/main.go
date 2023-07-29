@@ -25,12 +25,28 @@ type Article struct {
 
 type Articles []Article
 
+var epm = Articles{
+	Article{ ID: 1,
+	 Name: "Toyfota Camry",
+	 Price:24970,
+	 Image: "car1.jpg",
+	 },
+	 Article{ ID: 2,
+		 Name: "Fergrari",
+		 Price:54970,
+		 Image: "car2.jpg",
+		 },
+
+	Article{ ID: 3,
+		Name: "BMW",
+		Price:144970,
+		Image: "car3.jpg",
+		},
+ }
 
 // Uncaught runtime errors:
 // ERROR
 // NetworkError when attempting to fetch resource.
-
-
 
 func getArticle(w http.ResponseWriter, r *http.Request) {
 	// epm := Articles{
@@ -39,25 +55,7 @@ func getArticle(w http.ResponseWriter, r *http.Request) {
 	// 	 Article{ID: 6, Name: "Guth", Salary: 21000, Increase: false, Like: true},
 	// 	Article{ID: 7, Name: "Ivan", Salary: 35000, Increase: true, Like: false},
 	// }
-	epm := Articles{
-		Article{ ID: 1,
-		 Name: "Toyfota Camry",
-		 Price:24970,
-		 Image: "car1.jpg",
-		 },
-		 Article{ ID: 2,
-			 Name: "Fergrari",
-			 Price:54970,
-			 Image: "car2.jpg",
-			 },
-
-		Article{ ID: 3,
-			Name: "BMW",
-			Price:144970,
-			Image: "car3.jpg",
-			},
-	 }
-
+	
 
 	fmt.Println("Endpoint")
 	w.Header().Set("Accept","application")
@@ -93,8 +91,12 @@ func AddArticle(w http.ResponseWriter, r *http.Request){
 	w.Header().Set("Access-Control-Allow-Origin","*")
 	w.Header().Set("Access-Control-Allow-Methods","POST")
 
-	// var epm Article
-	// json.NewDecoder(r.Body).Decode(&epm)
+	
+
+	var edm Article
+	 json.NewDecoder(r.Body).Decode(&edm)
+
+	epm = append(epm,edm)
 
 	// database :=	connectWithDB()
 
@@ -104,8 +106,8 @@ func AddArticle(w http.ResponseWriter, r *http.Request){
 	// 	panic(err.Error())
 	// }
 	// defer insert.Close()
-
-	//json.NewEncoder(w).Encode(epm)
+	
+	json.NewEncoder(w).Encode(edm)
 }
 
 
@@ -140,7 +142,7 @@ func Router() *mux.Router {
 	myRouter := mux.NewRouter()
 
 	myRouter.HandleFunc("/api/employees", getArticle).Methods("GET","OPTIONS")
-	// myRouter.HandleFunc("/api/employees", AddArticle).Methods("POST","OPTIONS")
+	 myRouter.HandleFunc("/api/employees", AddArticle).Methods("POST","OPTIONS")
 //	myRouter.HandleFunc("/api/employees/{id}", DeleteArticle).Methods("POST","OPTIONS")
 	return 	myRouter
 }

@@ -2,14 +2,21 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 
 import './assets/style/global.css'
-import Home from './assets/components/screens/home/Home.jsx'
-import AuthProvider from './assets/providers/AuthProvider'
+import Router from './assets/components/ui/Router'
+import AuthProvider from './providers/AuthProvider'
 
+import {QueryClientProvider, QueryClient} from "@tanstack/react-query"
+
+const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <AuthProvider>
-    <Home />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <Router/>
+        </AuthProvider>
+    </QueryClientProvider>
+
+    
   </React.StrictMode>,
 )

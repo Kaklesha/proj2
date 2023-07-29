@@ -1,77 +1,40 @@
-import styles from './Home.module.css'
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import {cars as carsData} from './cars.data.js'
-import CarItem from './car-item/CarItem'
-import VideoPlayer from './Player.jsx'
+import { useEffect, useState, useCallback, useMemo, useContext } from "react";
+import { cars as carsData } from "./cars.data.js";
+import CarItem from "./car-item/CarItem";
+import { useNavigate } from "react-router-dom";
 
-import CreateCarForm from './create-car-form/CreateCarForm'
-import { AuthContext } from '../../../providers/AuthProvider'
+import CreateCarForm from "./create-car-form/CreateCarForm";
+import "./Home.module.css";
+import { CarService } from "../../../../service/car.service.js";
+import VideoPlayer from "./player.jsx";
+import { AuthContext } from "../../../../providers/AuthProvider.jsx";
+import { useQuery } from "@tanstack/react-query";
+import Header from "../../ui/Header/header.jsx";
+import Catalog from "./catalog/Catalog.jsx";
 
+const Home = () => {
+  const { data, isLoading, error } = useQuery(["cars"], () =>
+    CarService.getAll()
+  );
 
-const Home=()=> {
-    
-  const clearCars= useCallback(()=>()=>{
-    setCars([])
+  const [cars, setCars] = useState(carsData);
 
-
-  },[])
-
-
-    useEffect(()=>{
-
-        const fetchData= async()=>{
-            const response = fetch(
-//-----Пришлось переписать await ума не приложу как его сцепить с Go в авторской версии этого хука
-            'http://localhost:9000/api/employees',{
-                method: 'GET',
-                headers:{
-                    'Accept': 'application',
-                },
-            })
-            .then(response=>response.json())
-            .then(response=>{setCars(response)})
-//----
-
-        }
-        fetchData()
-        return clearCars
-        
-    },[])
-
-    const [cars,setCars]=useState(carsData)
-    console.log(cars)
+  const nav = useNavigate();
 
 
-   // const {push} = useNavigate()
 
-  const {user,setUser}=useContext(AuthContext)
+  if (isLoading) return <p>Loading...</p>;
 
-    return (
-       <div>
-        <h1>
-          Car catalog
-        </h1>
-       {/* <VideoPlayer src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" />
-     */}
+  return (
+    <div>
+    {/* <Header/> */}
 
-      {!!user&&<><h2>Welcome ,{user.username}!</h2>
-      <button onClick={()=>setUser(null)} >Logout</button></>
-      
-      }
+    <VideoPlayer />
+    <Catalog data={data}/>
+  <button onClick={() => nav("/car/1")}> gg </button>
+  <CreateCarForm setCars={setCars} />
+    </div>
+  );
+};
 
-
-        <CreateCarForm  setCars={setCars} />
-            <div>
-                {cars.length&&cars.map(car=>(
-
-                  <CarItem  key={car.id} car={car} />
-
-                ))}
-               
-            </div>
-       </div>
-      
-    )
-  }
-  
-  export default Home
+export default Home;

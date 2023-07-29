@@ -1,5 +1,6 @@
 import axios from "axios";
 
+<<<<<<< HEAD
 export const CarService={
 
   async getAll(){
@@ -13,3 +14,29 @@ export const CarService={
         return response.data;
     }
   } 
+=======
+export const  CarService ={
+    async getAll(){
+        const response = await axios.get(
+            'http://localhost:9000/api/employees')
+            
+            console.log(response.data);
+            return response.data;
+    },
+    async getById(id){
+        const response = await axios.get(
+           ` http://localhost:9000/api/employees?id=${id}`)
+            
+            console.log(response.data);
+            return response.data[0];
+    },
+    
+    async create (data){
+     
+        return axios.post(
+            'http://localhost:9000/api/employees',data)
+            
+    }
+    
+}
+>>>>>>> dev/task-1

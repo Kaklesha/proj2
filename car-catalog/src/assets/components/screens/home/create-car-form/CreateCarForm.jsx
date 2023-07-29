@@ -1,70 +1,40 @@
-import { useState } from 'react'
-import styles from './CreateCarForm.module.css'
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+
+import styles from "./CreateCarForm.module.css";
+import ErrorMessage from "./ErrorMessage";
+import { UseCreateCar } from "./useCreateCar";
 
 
-const clearData={
-    price:'',
-    name:'',
-    image:'',
-}
+const CreateCarForm = () => {
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "onChange",
+  });
 
+ const {createCar}=UseCreateCar(reset)
 
-const CreateCarForm=({setCars})=>{
-    
-    const [name, setName]=useState('')
-    const [price, setPrice]=useState('')
-    const [image, setImage]=useState('')
+  console.log(errors);
 
-    const [data,setData]=useState({
-        price: '', name:'',image:'',
-    })
-   
-    const createCar =e=>{
-        e.preventDefault()
-        console.log(name,price,image)
-        setCars(prev=>[{id: prev.lengt+1, 
-           ...data}, ...prev])
+  return (
+    <form className={styles.form} onSubmit={handleSubmit(createCar)}>
+      <input
+        {...register("name", { required: " Name is requered " })}
+        placeholder="Name"
+      />
+      <ErrorMessage errors={errors?.name?.message}/>
+      <input placeholder="Price" {...register("price", { required: true })} />
 
-           setData(clearData)
-    }
+      <input placeholder="Image" {...register("image", { required: true })} />
 
-    
-
-    return (
-        
-        <form className={styles.form}>
-            
-            <input placeholder="Name" 
-            onChange={e=>setData(
-                prev=>({
-                    ...prev,name: e.target.value
-                })
-            )}
-             value={data.name} />
-            <input placeholder="Price" 
-             onChange={e=>setData(
-                prev=>({
-                    ...prev,price: e.target.value
-                })
-            )}
-             value={data.price}/>
-
-            <input placeholder="Image.jpg" 
-             onChange={e=>setData(
-                prev=>({
-                    ...prev,image: e.target.value
-                })
-            )}
-             value={data.image}/>
-
-            <button className='btn'
-            onClick={e=>createCar(e)}
-            >Create</button>
-
-
-        </form>
-
-
-    )
-}
-export default CreateCarForm
+      <button className="btn" onClick={createCar}>
+        Create
+      </button>
+    </form>
+  );
+};
+export default CreateCarForm;
