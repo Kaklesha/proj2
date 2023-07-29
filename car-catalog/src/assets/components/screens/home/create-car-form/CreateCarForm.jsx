@@ -2,49 +2,38 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import styles from "./CreateCarForm.module.css";
-
+import ErrorMessage from "./ErrorMessage";
+import { UseCreateCar } from "./useCreateCar";
 
 
 const CreateCarForm = () => {
-
-
-  const { register, reset, handleSubmit , formState:{errors}} = useForm({
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     mode: "onChange",
   });
 
-  const createCar = (data) => {
+ const {createCar}=UseCreateCar(reset)
 
-   // console.log(name, price, image);
-//    console.log(data)
-//     setCars((prev) => [{ id: prev.lengt + 1, ...data }, ...prev]);
-
-
-    reset()
-    //setData(clearData);
-  };
-
-  console.log(errors)
+  console.log(errors);
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(createCar)}>
       <input
-        {...register('name',{required:" Name is requered "})}
+        {...register("name", { required: " Name is requered " })}
         placeholder="Name"
       />
-      {errors?.name?.message&&    
-      <p className={{color:'red',}}>Name is required</p>
-      }
-      <input
-        placeholder="Price"
-        {...register('price',{required:true})}
-      />
+      <ErrorMessage errors={errors?.name?.message}/>
+      <input placeholder="Price" {...register("price", { required: true })} />
 
-      <input placeholder="Image"    
-       {...register('image',{required:true})}
-      
-      />
+      <input placeholder="Image" {...register("image", { required: true })} />
 
-      <button className="btn">Create</button>
+      <button className="btn" onClick={createCar}>
+        Create
+      </button>
     </form>
   );
 };

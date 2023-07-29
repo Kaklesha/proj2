@@ -9,6 +9,8 @@ import { CarService } from "../../../../service/car.service.js";
 import VideoPlayer from "./player.jsx";
 import { AuthContext } from "../../../../providers/AuthProvider.jsx";
 import { useQuery } from "@tanstack/react-query";
+import Header from "../../ui/Header/header.jsx";
+import Catalog from "./catalog/Catalog.jsx";
 
 const Home = () => {
   const { data, isLoading, error } = useQuery(["cars"], () =>
@@ -19,30 +21,18 @@ const Home = () => {
 
   const nav = useNavigate();
 
-  const { user, setUser } = useContext(AuthContext);
+
 
   if (isLoading) return <p>Loading...</p>;
 
   return (
     <div>
-      {user ? (
-        <>
-          <h2>Welcome, {user.username}!</h2>
-        </>
-      ) : (
-        <>
-          <h2>You need auth</h2>
-        </>
-      )}
+    {/* <Header/> */}
 
-      <h1>Car catalog</h1>
-      <VideoPlayer />
-
-      <button onClick={() => nav("/car/1")}> gg </button>
-      <CreateCarForm setCars={setCars} />
-      <div>
-        {data.length && data.map((car) => <CarItem key={car.id} car={car} />)}
-      </div>
+    <VideoPlayer />
+    <Catalog data={data}/>
+  <button onClick={() => nav("/car/1")}> gg </button>
+  <CreateCarForm setCars={setCars} />
     </div>
   );
 };
