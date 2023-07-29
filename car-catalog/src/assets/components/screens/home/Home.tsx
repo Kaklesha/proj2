@@ -1,11 +1,11 @@
 import { useEffect, useState, useCallback, useMemo, useContext } from "react";
 import { cars as carsData } from "./cars.data.js";
-import CarItem from "./car-item/CarItem";
+import CarItem from "./car-item/CarItem.jsx";
 import { useNavigate } from "react-router-dom";
 
-import CreateCarForm from "./create-car-form/CreateCarForm";
+import CreateCarForm from "./create-car-form/CreateCarForm.jsx";
 import "./Home.module.css";
-import { CarService } from "../../../../service/car.service.js";
+import { CarService } from "../../../../services/car.service.js";
 import VideoPlayer from "./player.jsx";
 import { AuthContext } from "../../../../providers/AuthProvider.jsx";
 import { useQuery } from "@tanstack/react-query";

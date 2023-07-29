@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import CarItem from "../car-item/CarItem";
 
 import { withAuth } from "../../../../../HOC/withAuth";
-import { CarService } from "../../../../../service/car.service";
+import { CarService } from "../../../../../services/car.service";
 //import { AuthContext } from "../../../../../providers/AuthProvider";
 
 const CarDetail = () => {
